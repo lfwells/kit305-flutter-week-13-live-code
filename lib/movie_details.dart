@@ -23,8 +23,8 @@ class _MovieDetailsState extends State<MovieDetails> {
   @override
   Widget build(BuildContext context)
   {
-    var movies = Provider.of<MovieModel>(context, listen:false).items;
-    Movie? movie = widget.id != -1 ? movies[widget.id] : null;
+    //TODO: read the movie from the model
+    Movie? movie = null;//widget.id != -1 ? movies[widget.id] : null;
 
     var adding = movie == null;
     if (!adding) {
@@ -44,48 +44,46 @@ class _MovieDetailsState extends State<MovieDetails> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   if (adding == false) Text("Movie Index ${widget.id}"), //check out this dart syntax, lets us do an if as part of an argument list
-                  Form(
-                    key: _formKey,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: <Widget>[
-                          TextFormField(
-                            decoration: const InputDecoration(labelText: "Title"),
-                            controller: titleController,
-                          ),
-                          TextFormField(
-                            decoration: const InputDecoration(labelText: "Year"),
-                            controller: yearController,
-                          ),
-                          TextFormField(
-                            decoration: const InputDecoration(labelText: "Duration"),
-                            controller: durationController,
-                          ),
-                          ElevatedButton.icon(onPressed: () async {//this function is asynchronous now
-                            if (_formKey.currentState?.validate() ?? false)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: const InputDecoration(labelText: "Title"),
+                          controller: titleController,
+                        ),
+                        TextFormField(
+                          decoration: const InputDecoration(labelText: "Year"),
+                          controller: yearController,
+                        ),
+                        TextFormField(
+                          decoration: const InputDecoration(labelText: "Duration"),
+                          controller: durationController,
+                        ),
+                        ElevatedButton.icon(onPressed: () async {//this function is asynchronous now
+                          if (_formKey.currentState?.validate() ?? false)
+                          {
+                            if (adding)
                             {
-                              if (adding)
-                              {
-                                movie = Movie(title:"", duration: 0, year: 0);
-                              }
-
-                              //update the movie object
-                              movie!.title = titleController.text;
-                              movie!.year = int.parse(yearController.text); //good code would validate these
-                              movie!.duration = double.parse(durationController.text); //good code would validate these
-
-                              //TODO: update the model
-
-
-
-
-                              //return to previous screen
-                              if (context.mounted)  Navigator.pop(context);
+                              movie = Movie(title:"", duration: 0, year: 0);
                             }
-                          }, icon: const Icon(Icons.save), label: const Text("Save Values"))
-                        ],
-                      ),
+
+                            //update the movie object
+                            //TODO: use a form validator
+                            movie!.title = titleController.text;
+                            movie!.year = int.parse(yearController.text); //good code would validate these
+                            movie!.duration = double.parse(durationController.text); //good code would validate these
+
+                            //TODO: update the model
+
+
+
+
+                            //return to previous screen
+                            if (context.mounted)  Navigator.pop(context);
+                          }
+                        }, icon: const Icon(Icons.save), label: const Text("Save Values"))
+                      ],
                     ),
                   )
                 ]

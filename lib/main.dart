@@ -15,16 +15,14 @@ class MyApp extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    //TODO: provide the model
     //BEGIN: the old MyApp builder from last week
-    return ChangeNotifierProvider(
-        create: (context) => MovieModel(),
-        child: MaterialApp(
-            title: 'Database Tutorial',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            home: const MyHomePage(title: 'Database Tutorial')
-        )
+    return MaterialApp(
+      title: 'Database Tutorial',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const MyHomePage(title: 'Database Tutorial')
     );
     //END: the old MyApp builder from last week
   }
@@ -46,10 +44,11 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   Widget build(BuildContext context)
   {
+    //TODO: consume the model
     var movies = [
       Movie(title:"Lord of the Rings", year:2001, duration:9001, image:"https://upload.wikimedia.org/wikipedia/en/f/fb/Lord_Rings_Fellowship_Ring.jpg"),
       Movie(title:"The Matrix", year:1999, duration:150, image:"https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg")
-  ];
+    ];
 
     return Scaffold(
       appBar: AppBar(
