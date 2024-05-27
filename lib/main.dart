@@ -44,13 +44,13 @@ class MyHomePage extends StatefulWidget
 class _MyHomePageState extends State<MyHomePage>
 {
   @override
-  Widget build(BuildContext context) {
-    return Consumer<MovieModel>(
-        builder:buildScaffold
-    );
-  }
+  Widget build(BuildContext context)
+  {
+    var movies = [
+      Movie(title:"Lord of the Rings", year:2001, duration:9001, image:"https://upload.wikimedia.org/wikipedia/en/f/fb/Lord_Rings_Fellowship_Ring.jpg"),
+      Movie(title:"The Matrix", year:1999, duration:150, image:"https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg")
+  ];
 
-  Scaffold buildScaffold(BuildContext context, MovieModel movieModel, _) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage>
             Expanded(
               child: ListView.builder(
                   itemBuilder: (_, index) {
-                    var movie = movieModel.items[index];
+                    var movie = movies[index];
                     var image = movie.image;
                     return ListTile(
                       title: Text(movie.title),
@@ -81,24 +81,12 @@ class _MyHomePageState extends State<MyHomePage>
                       },
                     );
                   },
-                  itemCount: movieModel.items.length
+                  itemCount: movies.length
               ),
             )
           ],
         ),
       ),
     );
-  }
-}
-
-//A little helper widget to avoid runtime errors -- we can't just display a Text() by itself if not inside a MaterialApp, so this workaround does the job
-class FullScreenText extends StatelessWidget {
-  final String text;
-
-  const FullScreenText({Key? key, required this.text}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(textDirection:TextDirection.ltr, child: Column(children: [ Expanded(child: Center(child: Text(text))) ]));
   }
 }
