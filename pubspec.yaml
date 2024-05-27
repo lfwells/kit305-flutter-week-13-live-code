@@ -32,6 +32,9 @@ dependencies:
 
   provider:
 
+  # the share plus package doesn't work with this particular project, need to update gradle
+  # share_plus: ^9.0.0
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
